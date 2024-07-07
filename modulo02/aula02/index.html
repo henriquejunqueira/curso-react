@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React Para Iniciantes</title>
+
+		<!-- Carrega o React, React Dom e Babel -->
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+		<!-- Don't use this in production: -->
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="app-javascript">
+			<h2>Versão com JS</h2>
+			<p>Total: <span id="total"></span></p>
+			<p>Preço: R$ <span id="preco"></span></p>
+			<button id="button">Comprar</button>
+		</div>
+		<script type="application/javascript">
+			const total = document.getElementById('total');
+			const preco = document.getElementById('preco');
+			const button = document.getElementById('button');
+
+			let contador = 1;
+
+			function atualizarValores(contador) {
+				total.innerText = contador;
+				preco.innerText = contador * 250;
+			}
+
+			// ! como está sendo passado o contador quando a função atualizarValores é executada,
+			// ! então ele já recebe total 1 e preço 250 ao recarregar a página
+			atualizarValores(contador);
+
+			function handleClick() {
+				contador = contador + 1;
+				// console.log(contador);
+				atualizarValores(contador);
+			}
+
+			button.addEventListener('click', handleClick);
+		</script>
+
+		<div id="app-react"></div>
+
+		<script type="text/babel">
+			const Comprar = () => {
+				// ! Como o useState recebe 1 então ele já define inicialmente total como 1 e Preço como 250
+				const [contador, setContador] = React.useState(1);
+
+				return (
+					<div>
+						<h2>Versão com React</h2>
+						<p>Total: {contador}</p>
+						<p>Preço: R$ {contador * 250}</p>
+						<button onClick={() => setContador(contador + 1)}>Comprar</button>
+					</div>
+				);
+			};
+
+			ReactDOM.render(<Comprar />, document.getElementById('app-react'));
+		</script>
+	</body>
+</html>
